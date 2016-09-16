@@ -1,4 +1,6 @@
 #BlueJ class context
 comment0.params=
 comment0.target=void\ run()
-numComments=1
+comment1.params=entrancePoint\ ballBotArrayLength
+comment1.target=void\ run(BallWorld,\ int)
+numComments=2
