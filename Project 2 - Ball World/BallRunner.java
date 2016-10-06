@@ -7,55 +7,62 @@
  */
 public class BallRunner
 {
-    private BallWorld ballWorld;
-    private TGPoint entrancePoint;
+    protected BallWorld ballWorld;
+    public TGPoint entrancePoint;
+    public int ballBotArrayLength;
     private BallBot[] ballBotArray;
+   
+ 
 
+    public void run(){
+        ballWorld = new BallWorld(500,500);
+        entrancePoint= new TGPoint(0,0);
+        ballBotArrayLength =10;
 
-    public static void run(){
-        int numberOfBots = 7;
-        BallWorld ballWorld = new BallWorld(500,500);
-        TGPoint tgPoint = new TGPoint(0,0);
-        BallRunner br = new BallRunner(ballWorld, tgPoint, numberOfBots);
+        while (true)
+        {
+            int ballBotIndex;
+            ballBotIndex = findFreeBallBotIndex();
+            if (ballBotIndex < ballBotArray.length)
+            {
+                ballBotArray[ballBotIndex] = new BallBot(ballWorld, entrancePoint,(Math.random()*360), 50);
+            }
+            for (int index = 0; index <= ballBotArray.length - 1; index++)
+            {
+                if (ballBotArray[index] != null){
+                    ballBotArray[index].moveForward();
+                }
+                else
+                {
+                    ballBotArray[index].setHeading(Math.random()*360);
+
+                }
+
+            }
+
+        }
 
     }
-    
-    public BallRunner(BallWorld ballWorld1, TGPoint entrancePoint1, int ballBotArrayLength ){
-        ballWorld = ballWorld1;
-        entrancePoint = entrancePoint1;
+
+    public BallRunner(BallWorld ballWorld, TGPoint entrancePoint, int ballBotArrayLength ){
+        ballWorld = ballWorld;
+        entrancePoint = entrancePoint;
+
         ballBotArray = new BallBot[ballBotArrayLength];
-        loadBallBotArray();
-        while (true){
-            
-            if (ballBot.canMoveForward(ballWorld)){
-                ballBot.moveForward();
-            }
-            else
+    }
+
+    public int findFreeBallBotIndex()
+    {
+        int return_value = ballBotArray.length;
+        for (int i = 0; i <= ballBotArray.length-1; i++)
+        {
+            if (ballBotArray[i] == null)
             {
-                ballBot.setHeading(ballBot.getHeading() + 90);
-                ballBot.moveForward();
-
+                return i;
             }
 
         }
+        return return_value;
     }
-    public void loadBallBotArray(){
-        for(int i = 0; i < numberOfBots; i++ ){
-            int randDirection = (int)(math.random()*360);
-            ballBotArray[i] = new BallBot(ballWorld, tgPoint, randDirection, 20);
-        }
-    }
-    
-    public int findFreeBallBotIndex(){
-        for(int i = 0; i < ballBotArray.length; i++){
-            if (ballBotArray = null){
-                return  i;
 
-            }
-            else
-            {
-                return  ballBotArray.length;
-            }
-        }
-    }
 }
